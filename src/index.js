@@ -4,7 +4,7 @@ const app = express()
 const interface = '127.0.0.1'
 const port = 3000
 
-const ENV = 'test'
+const ENV = 'pro'
 
 app.get('/:context/:extension/:priority/:command', async (req, res) => {
     const {context, extension, priority, command} = req.params
@@ -12,7 +12,7 @@ app.get('/:context/:extension/:priority/:command', async (req, res) => {
     const interface = ENV === 'test' ? require('./asteriskMockInterface.js') : require('./asteriskInterface.js')
 
     // Get the configuration file content
-    const configContent = await interface.getAsteriskConfiguration()
+    const configContent = await interface.getConfiguration()
 
     // Split by lines
     const contextContent = configContent.split(`\n`)
@@ -35,7 +35,9 @@ app.get('/:context/:extension/:priority/:command', async (req, res) => {
       }
     }
 
-    res.send(`${resultBuffer}`)
+    const result = await interface.saveConfiguration(resultBuffer)
+
+    res.status(200).json({success: result})
 })
 
 app.listen(port, interface, () => {

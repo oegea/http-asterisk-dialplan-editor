@@ -1,5 +1,5 @@
 module.exports = {
-    getAsteriskConfiguration:  () => Promise.resolve(`[public]
+    getConfiguration:  () => Promise.resolve(`[public]
     exten => norris,1,Goto(marcanorris,100,1)
     
     [numeronodisponible]
