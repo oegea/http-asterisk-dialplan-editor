@@ -1,5 +1,5 @@
 module.exports = {
-    asteriskConfigLineEditor: async (
+    editAsteriskConfig: async (
         dependencies,
         {
             context, extension, priority, command

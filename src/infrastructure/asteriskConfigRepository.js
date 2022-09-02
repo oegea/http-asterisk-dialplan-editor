@@ -4,7 +4,7 @@ const { exec } = require("child_process");
 module.exports = {
     getConfiguration: () => {
         return new Promise((resolve, reject) => {
-            fs.readFile('/etc/asterisk/extensions.conf ', 'utf8', (err, data) => {
+            fs.readFile('/etc/asterisk/extensions.conf', 'utf8', (err, data) => {
   
                 if (err){
                     console.dir(err)

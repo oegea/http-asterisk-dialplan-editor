@@ -10,10 +10,10 @@ app.get('/:context/:extension/:priority/:command', async (req, res) => {
     const {context, extension, priority, command} = req.params
 
     const interface = ENV === 'test' ? require('./infrastructure/asteriskConfigMockRepository.js') : require('./infrastructure/asteriskConfigRepository.js')
-    const asteriskConfigLineEditor = require('./domain/asteriskConfigLineEditor.js')
+    const {editAsteriskConfig} = require('./domain/asteriskConfigLineEditor.js')
 
     try {
-      const result = await asteriskConfigLineEditor(interface, {
+      const result = await editAsteriskConfig(interface, {
         context, extension, priority, command
       })
       
