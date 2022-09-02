@@ -26,5 +26,5 @@ app.get('/:context/:extension/:priority/:command', async (req, res) => {
 })
 
 app.listen(port, interface, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`http-asterisk-dialplan-editor is running and listening on ${interface}:${port}`)
 })
