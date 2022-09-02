@@ -25,14 +25,16 @@ module.exports = {
             // If we are in the desired context
             if (line.includes(`[${context}]`)){
                 inContext = true
-        }
+            }
 
-        if (inContext && line.includes(`exten => ${extension},${priority}`)) {
-            inContext = false
-            resultBuffer += `exten => ${extension},${priority},${command}\n`
-        } else {
-            resultBuffer += `${line}\n`
-        }
+            if (inContext && line.includes(`exten => ${extension},${priority}`)) {
+                inContext = false
+                resultBuffer += `exten => ${extension},${priority},${command}`
+            } else {
+                resultBuffer += `${line}`
+            }
+
+            resultBuffer += (i < contextContent.length-1) ? '\n' : ''
         }
 
         const result = await saveConfiguration(resultBuffer)

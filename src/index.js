@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 // Do not expose this over the internet
-const interface = '127.0.0.1'
+const networkInterface = '127.0.0.1'
 const port = 3000
 
 const ENV = 'pro'
@@ -9,11 +9,11 @@ const ENV = 'pro'
 app.get('/:context/:extension/:priority/:command', async (req, res) => {
     const {context, extension, priority, command} = req.params
 
-    const interface = ENV === 'test' ? require('./infrastructure/asteriskConfigMockRepository.js') : require('./infrastructure/asteriskConfigRepository.js')
+    const asteriskConfigMockRepository = ENV === 'test' ? require('./fixtures/asteriskConfigMockRepository.js') : require('./infrastructure/asteriskConfigRepository.js')
     const {editAsteriskConfig} = require('./domain/asteriskConfigLineEditor.js')
 
     try {
-      const result = await editAsteriskConfig(interface, {
+      const result = await editAsteriskConfig(asteriskConfigMockRepository, {
         context, extension, priority, command
       })
       
@@ -25,6 +25,6 @@ app.get('/:context/:extension/:priority/:command', async (req, res) => {
 
 })
 
-app.listen(port, interface, () => {
-  console.log(`http-asterisk-dialplan-editor is running and listening on ${interface}:${port}`)
+app.listen(port, networkInterface, () => {
+  console.log(`http-asterisk-dialplan-editor is running and listening on ${networkInterface}:${port}`)
 })
