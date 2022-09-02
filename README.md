@@ -1,12 +1,13 @@
-# HTTP-ASTERISK-DIALPLAN-EDITOR
+# HTTP ASTERISK DIALPLAN EDITOR
 
-## About this service
+## About this repository
 
 A small http service to perform basic editions into an Asterisk dialplan configuration file and reload the service.
+It can be consumed both by web apps to perform modifications on demand, but also making HTTP requests directly from a phone extension through the `CURL` utility.
+
+## How to install
 
 May not work entirely on Windows systems.
-
-## How to install
 
 1. Clone the repository by performing a git clone command.
 2. Install dependencies by running `npm run i`
