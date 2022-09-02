@@ -9,41 +9,20 @@ const ENV = 'pro'
 app.get('/:context/:extension/:priority/:command', async (req, res) => {
     const {context, extension, priority, command} = req.params
 
-    const interface = ENV === 'test' ? require('./asteriskMockInterface.js') : require('./asteriskInterface.js')
+    const interface = ENV === 'test' ? require('./infrastructure/asteriskConfigMockRepository.js') : require('./infrastructure/asteriskConfigRepository.js')
+    const asteriskConfigLineEditor = require('./domain/asteriskConfigLineEditor.js')
 
-    // Get the configuration file content
-    const configContent = await interface.getConfiguration()
-
-    if (configContent === null)
-    {
-      res.status(500).json({success: false})
-      return
+    try {
+      const result = await asteriskConfigLineEditor(interface, {
+        context, extension, priority, command
+      })
+      
+  
+      res.status(200).json({success: result})
+    } catch (result) {
+      res.status(500).json(result)
     }
 
-    // Split by lines
-    const contextContent = configContent.split(`\n`)
-
-    // Iterate
-    let inContext = false
-    let resultBuffer = ''
-    for (let i = 0; i < contextContent.length; i++) {
-      const line = contextContent[i]
-      // If we are in the desired context
-      if (line.includes(`[${context}]`)){
-        inContext = true
-      }
-
-      if (inContext && line.includes(`exten => ${extension},${priority}`)) {
-        inContext = false
-        resultBuffer += `exten => ${extension},${priority},${command}\n`
-      } else {
-        resultBuffer += `${line}\n`
-      }
-    }
-
-    const result = await interface.saveConfiguration(resultBuffer)
-
-    res.status(200).json({success: result})
 })
 
 app.listen(port, interface, () => {
