@@ -6,9 +6,11 @@ module.exports = {
         return new Promise((resolve, reject) => {
             fs.readFile('/etc/asterisk/extensions.conf ', 'utf8', (err, data) => {
   
-                if (err)
-                    resolve(false)
-                
+                if (err){
+                    console.dir(err)
+                    resolve(null)
+                }
+                      
                 resolve(data)
             })
         });

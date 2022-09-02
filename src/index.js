@@ -14,6 +14,12 @@ app.get('/:context/:extension/:priority/:command', async (req, res) => {
     // Get the configuration file content
     const configContent = await interface.getConfiguration()
 
+    if (configContent === null)
+    {
+      res.status(500).json({success: false})
+      return
+    }
+
     // Split by lines
     const contextContent = configContent.split(`\n`)
 
