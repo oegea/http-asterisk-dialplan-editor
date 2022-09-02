@@ -3,8 +3,8 @@ const { exec } = require("child_process");
 
 module.exports = {
     getConfiguration: () => {
-        return new Promise((resolve, reject) => {
-            fs.readFile('/etc/asterisk/extensions.conf', 'utf8', (err, data) => {
+        return new Promise((resolve) => {
+            fs.readFile(process.env.ASTERISK_CONFIG_PATH, 'utf8', (err, data) => {
   
                 if (err){
                     console.dir(err)
@@ -17,9 +17,9 @@ module.exports = {
     },
 
     saveConfiguration: async (newContent) => {
-        return new Promise((resolve, reject) => {
-            fs.writeFile('/etc/asterisk/extensions.conf', newContent, () => {
-                exec("service asterisk reload")
+        return new Promise((resolve) => {
+            fs.writeFile(process.env.ASTERISK_CONFIG_PATH, newContent, () => {
+                exec(process.env.ASTERISK_RESTART_COMMAND)
                 resolve(true)
             })
         });
