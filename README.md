@@ -45,7 +45,7 @@ exten => 1,1,Verbose(0, ${CURL(http://127.0.0.1:300/public/home/1/dial(SIP%2Fano
 
 The new extension, performs an http GET request to **HTTP ASTERISK DIALPLAN EDITOR**, following this format:
 
-`http://ipAddress:port/:context/:extension/priority/command`
+`http://ipAddress:port/:context/:extension/:priority/:command`
 
 It's possible to modify parameters to perform different editions. 
 Have fun! :)
