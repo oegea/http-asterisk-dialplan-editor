@@ -18,7 +18,7 @@ May not work entirely on Windows systems.
 
 ## How to use
 
-Although this service can be consumed from any kind of software (web apps, cli apps, desktop software, etc.), it has been developer with dialplan scripts in mind.
+Although this service can be consumed from any kind of software (web apps, cli apps, desktop software, etc.), it has been developed with dialplan scripts in mind.
 
 **Here is an example:**
 
